@@ -15,8 +15,12 @@ public class SongService {
     @Autowired
     SongRepository songRepository;
 
-    public Page<Song> findAll(String name, Pageable pageable) {
-        return songRepository.findAll(name, pageable);
+    public Iterable<Song> findAll() {
+        return songRepository.findAll();
+    }
+
+    public Page<Song> findAll(Pageable pageable) {
+        return songRepository.findAll(pageable);
     }
     public Optional<Song> findById(Long id) {
         return songRepository.findById(id);

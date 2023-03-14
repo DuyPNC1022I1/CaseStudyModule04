@@ -1,8 +1,6 @@
 package media.web.mediaweb.controller;
 
-import media.web.mediaweb.model.Album;
 import media.web.mediaweb.model.Song;
-import media.web.mediaweb.service.AlbumService;
 import media.web.mediaweb.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,21 +31,24 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-
     @GetMapping
-    public ResponseEntity<Iterable<Song>> findAllSong(@PageableDefault(value = 4) Pageable pageable, @RequestParam("search") Optional<String> name) {
-        Page<Song> songs;
-        if (name.isPresent()) {
-            songs = songService.findAll(name.get(), pageable);
-        } else {
-            songs = songService.findAll("", pageable);
-        }
-        return new ResponseEntity<>(songs, HttpStatus.OK);
+    public ResponseEntity<Iterable<Song>> findAll() {
+        return new ResponseEntity<>(songService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/findByName")
-    public ResponseEntity<Iterable<Song>> findSongInPlaylist(@RequestParam String name) {
-        Iterable<Song> songs = songService.findByNameContaining(name);
+    @GetMapping("/page")
+    public ResponseEntity<Page<Song>> findAll(@PageableDefault(value = 4) Pageable pageable) {
+        return new ResponseEntity<>(songService.findAll(pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Song>> findSongInPlaylist(@RequestParam("search") Optional<String> name) {
+        Iterable<Song> songs;
+        if (name.isPresent()) {
+            songs = songService.findByNameContaining(name.get());
+        } else {
+            songs = songService.findByNameContaining("");
+        }
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
@@ -57,15 +58,14 @@ public class SongController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody Song song) {
-        songService.save(song);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Song> save(@RequestBody Song song) {
+        return new ResponseEntity<>(songService.save(song), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         songService.remove(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Delete done!", HttpStatus.OK);
     }
 
     @PostMapping(value = "/upload")

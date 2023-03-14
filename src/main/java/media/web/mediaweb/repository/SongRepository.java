@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface SongRepository extends JpaRepository<Song, Long> {
+    Page<Song> findAll(Pageable pageable);
     @Query(value = "select * from  song s where s.name like %:name%", nativeQuery = true)
     Iterable<Song> findAllByNameContaining(@Param("name") String name);
     @Query(value = "select * from song s join singer sg on  s.singer_id= sg.id where sg.name LIKE %:singer%", nativeQuery = true)
@@ -23,5 +24,4 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     Iterable<Song> getSongBySinger(@Param("id") Long id);
     @Query(value = "select * from song order by date_create_song desc", nativeQuery = true)
     Iterable<Song> getSongNewest();
-    Page<Song> findAll(String name, Pageable pageable);
 }
