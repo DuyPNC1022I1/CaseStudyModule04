@@ -1,6 +1,7 @@
 package media.web.mediaweb.controller;
 
 import media.web.mediaweb.model.Account;
+import media.web.mediaweb.model.UserPrinciple;
 import media.web.mediaweb.repository.IAccountRepository;
 import media.web.mediaweb.security.jwt.JwtResponse;
 import media.web.mediaweb.security.jwt.JwtService;
@@ -38,7 +39,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Account user) {
+    public ResponseEntity<?> login(@RequestBody UserPrinciple user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
