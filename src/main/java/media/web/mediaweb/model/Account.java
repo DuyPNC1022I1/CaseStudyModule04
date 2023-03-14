@@ -29,7 +29,6 @@ public class Account {
     @Email
     private String email; //Cần validate @
     private String address;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 

@@ -4,14 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,30 +22,31 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
-    @NotBlank
-    @UniqueElements
     private String name;
-
-    @Column( columnDefinition = "double default 0.0")
-    @DecimalMin(value = "0.0", inclusive = true, message = "Price must be greater than or equal to 0")
-    @NotNull
-    private Double price;
-
-    @NotBlank(message = "Date path must not be blank")
-    private LocalDate date;
-
-    @NotBlank(message = "Description must not be blank")
     private String description;
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price must be greater than or equal to 0")
+    private Double price;
+    @DateTimeFormat
+    private LocalDate dateCreateSong;
+    @Value("0")
+    private Long likeSong;
+    @ManyToMany
+    @JoinColumn(name = "album_id")
+    private Set<Album> albums;
+    @ManyToMany
+    @JoinColumn(name = "singer_id")
+    private Set<Singer> singer;
 
-    @NotBlank(message = "Image path must not be blank")
-    private String singer;
+    public Long getLinkSong() {
+        return likeSong;
+    }
 
-    @NotBlank(message = "Image path must not be blank")
-    private String image;
+    public void setLikeSong(Long viewSong) {
+        this.likeSong = viewSong;
+    }
 
-    @NotBlank(message = "Song must not be blank")
-    private String linkSong;
+    public int increment(){
+        return Math.toIntExact(likeSong++);
+    }
 
 }

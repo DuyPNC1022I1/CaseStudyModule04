@@ -1,25 +1,19 @@
 package media.web.mediaweb.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-@Getter
-@Setter
+
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "albums")
-public class Album {
+@Table(name = "singer")
+public class Singer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String name;
-    private String avatar;
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
 }
