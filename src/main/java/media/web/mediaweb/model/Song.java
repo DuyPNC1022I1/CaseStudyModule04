@@ -36,8 +36,10 @@ public class Song {
     @ManyToMany
     @JoinColumn(name = "singer_id")
     private Set<Singer> singer;
+    private String fileMp3;
+    private String avatar;
 
-    public Long getLinkSong() {
+    public Long getLikeSong() {
         return likeSong;
     }
 
