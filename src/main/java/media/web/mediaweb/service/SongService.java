@@ -15,6 +15,10 @@ public class SongService {
     @Autowired
     SongRepository songRepository;
 
+    public Iterable<Song> findAll() {
+        return songRepository.findAll();
+    }
+
     public Page<Song> findAll(Pageable pageable) {
         return songRepository.findAll(pageable);
     }
@@ -30,14 +34,15 @@ public class SongService {
         songRepository.deleteById(id);
     }
 
-    public Page<Song> findByNameContaining(String name, Pageable pageable) {
-        return songRepository.findAllByNameContaining(name, pageable);
+    public Iterable<Song> findByNameContaining(String name) {
+        return songRepository.findAllByNameContaining(name);
     }
 
     //Hien thi list bai hat theo album
     public Iterable<Song> findAllByAlbumContaining(String album) {
         return songRepository.findAllByAlbumContaining(album);
     }
+
 
     //Hien thi list bai hay theo ca si
     public Iterable<Song> findAllBySingerContaining(String singer) {

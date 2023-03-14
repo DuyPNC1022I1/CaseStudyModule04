@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +13,7 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface SongRepository extends JpaRepository<Song, Long> {
-
-    Page<Song> findAllByNameContaining(String name, Pageable pageable);
+    Page<Song> findAll(Pageable pageable);
     @Query(value = "select * from  song s where s.name like %:name%", nativeQuery = true)
     Iterable<Song> findAllByNameContaining(@Param("name") String name);
     @Query(value = "select * from song s join singer sg on  s.singer_id= sg.id where sg.name LIKE %:singer%", nativeQuery = true)
@@ -26,5 +24,4 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     Iterable<Song> getSongBySinger(@Param("id") Long id);
     @Query(value = "select * from song order by date_create_song desc", nativeQuery = true)
     Iterable<Song> getSongNewest();
-
 }

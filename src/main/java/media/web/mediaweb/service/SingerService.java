@@ -1,5 +1,6 @@
 package media.web.mediaweb.service;
 
+import media.web.mediaweb.model.Album;
 import media.web.mediaweb.model.Singer;
 import media.web.mediaweb.repository.SingerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
