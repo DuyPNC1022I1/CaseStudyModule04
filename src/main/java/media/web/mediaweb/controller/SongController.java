@@ -33,21 +33,15 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-
     @GetMapping
-    public ResponseEntity<Iterable<Song>> findAllSong(@PageableDefault(value = 4) Pageable pageable, @RequestParam("search") Optional<String> name) {
-        Page<Song> songs;
-        if (name.isPresent()) {
-            songs = songService.findAll(name.get(), pageable);
-        } else {
-            songs = songService.findAll("", pageable);
-        }
+    public ResponseEntity<Iterable<Song>> findAllSong(@PageableDefault(value = 4) Pageable pageable) {
+        Page<Song> songs = songService.findAll(pageable);
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
     @GetMapping("/findByName")
-    public ResponseEntity<Iterable<Song>> findSongInPlaylist(@RequestParam String name) {
-        Iterable<Song> songs = songService.findByNameContaining(name);
+    public ResponseEntity<Iterable<Song>> findSongInPlaylist(@RequestParam String name, Pageable pageable) {
+        Page<Song> songs = songService.findByNameContaining(name, pageable);
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
@@ -68,6 +62,7 @@ public class SongController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //Upload file
     @PostMapping(value = "/upload")
     public ResponseEntity<Song> createUpload(@RequestPart(value = "avatar", required = false) MultipartFile avatar,
                                              @RequestPart(value = "fileMp3", required = false) MultipartFile fileMp3,
@@ -79,7 +74,7 @@ public class SongController {
             song.setAvatar(displayLink + avatarPath);
             //FileMp3
             String fileMp3Path = fileMp3.getOriginalFilename();
-            FileCopyUtils.copy(avatar.getBytes(), new File(linkSave + fileMp3Path));
+            FileCopyUtils.copy(fileMp3Path.getBytes(), new File(linkSave + fileMp3Path));
             song.setFileMp3(displayLink + fileMp3Path);
         } else {
             song.setAvatar(displayLink + "default.png");
