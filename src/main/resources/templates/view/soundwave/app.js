@@ -4,7 +4,7 @@ function getAllSong() {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
         type: "GET",
-        url: "http://localhost:8080/songs",
+        url: "http://localhost:8080/admins",
         success: function (data) {
             displaySong(data)
         }
