@@ -30,6 +30,6 @@ public class AdminController {
         model.addAttribute("songs", songService.findAll(pageable));
         model.addAttribute("singer", albumService.findAll());
         model.addAttribute("album", singerService.findAll());
-        return "templates/view/soundwave/admin";
+        return "static/image/soundwave/admin";
     }
 }
