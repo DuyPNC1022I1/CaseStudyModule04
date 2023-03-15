@@ -121,13 +121,23 @@ function updateForm(id) {
 
 function update() {
     let name = $("#name").val()
-    let age = $("#age").val()
+    let price = $("#price").val()
     let address = $("#address").val()
-    let newCustomer = {
+    let description = $("#description").val()
+    let singer = $("#singer").val()
+    let album = $("#album").val()
+    let avatar = $("#avatar").val()
+    let fileMp3 = $("#fileMp3").val()
+    let newSong = {
         id: sessionStorage.getItem("update"),
         name: name,
-        age: age,
-        address: address
+        price: price,
+        address: address,
+        description: description,
+        singer: singer,
+        album: album,
+        avatar: avatar,
+        fileMp3: fileMp3
     }
     $.ajax({
         headers: {
@@ -136,7 +146,7 @@ function update() {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
         type: "PUT",
-        url: "http://localhost:8080/customers/" + sessionStorage.getItem("update"),
+        url: "http://localhost:8080/songs/" + sessionStorage.getItem("update"),
         data: JSON.stringify(newCustomer),
         success: function (data) {
             getAllSong()
@@ -161,7 +171,7 @@ function deleteSong(id) {
             type: "DELETE",
             url: "http://localhost:8080/songs/" + id,
             success: function (data) {
-                getAllCustomer()
+                getAllSong()
                 if (data !== "") {
                     alert("Delete successfully!")
                 }
@@ -182,18 +192,34 @@ function createForm() {
 
 function create() {
     let name = $("#name").val()
-    let age = $("#age").val()
+    let price = $("#price").val()
     let address = $("#address").val()
+    let description = $("#description").val()
+    let singer = $("#singer").val()
+    let album = $("#album").val()
+    let avatar = $("#avatar").val()
+    let fileMp3 = $("#fileMp3").val()
     let newSong = {
+        id: sessionStorage.getItem("update"),
         name: name,
-        age: age,
+        price: price,
         address: address,
-        avatar: ""
+        description: description,
+        singer: singer,
+        album: album,
+        avatar: "",
+        fileMp3: ""
     }
     let formData = new FormData();
-    formData.append("file", $('#file')[0].files[0])
-    formData.append("song", new Blob([JSON.stringify(newSong)]
-        , {type: 'application/json'}))
+    if ($('#avatar')[0].files.length > 0) {
+        formData.append("file", $('#avatar')[0].files[0]);
+    }
+    if ($('#fileMp3')[0].files.length > 0) {
+        $.each($('#fileMp3')[0].files, function(i, file) {
+            formData.append("file", file);
+        });
+    }
+    formData.append("song", new Blob([JSON.stringify(newSong)], {type: 'application/json'}));
     $.ajax({
         headers: {
             // 'Accept': 'application/json',
