@@ -6,7 +6,7 @@ function getAllSong() {
         type: "GET",
         url: "http://localhost:8080/songs",
         success: function (data) {
-            displayCustomer(data)
+            displaySong(data)
         }
     });
 }
@@ -34,34 +34,55 @@ function getAllSongPage(page) {
 }
 
 function displaySong(data) {
-    let content = `<table class="table table-striped"><tr><th>Name</th><th>Age</th>
-                    <th>Address</th><th>Avatar</th><th colspan="2">Action</th></tr>`;
+    let content = `<thead>
+            <tr>
+                <th colspan="11" style="text-align: center; font-size: xx-large">LIST SONG</th>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price($)</th>
+                <th>Description</th>
+                <th>Singer</th>
+                <th>Album</th>
+                <th>Avatar</th>
+                <th>File Mp3</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>`;
     for (let i = 0; i < data.length; i++) {
-        content += `<tr><td >${data[i].name}</td><td >${data[i].age}</td><td >${data[i].address}</td>
-                    <td><img src="${data[i].avatar}" alt=""></td>
-                    <td><button class="btn btn-warning" onclick="updateForm(${data[i].id})">Update</button></td>
-                    <td><button class="btn btn-danger" onclick="deleteSong(${data[i].id})">Delete</button></td></tr>`;
+        content += `<tbody>
+            <tr>
+                <td ${data[i].id}</td>
+                <td ${data[i].name}</td>
+                <td ${data[i].price}"></td>
+                <td ${data[i].description}"></td>
+                <td ${data[i].singer}"></td>
+                <td ${data[i].album}"></td>
+                <td <img style="height: 70px; width: 70px" src="${data[i].avatar}" alt=""></td>
+                <td><audio controls><source src="${data[i].fileMp3}"></td>
+            </tbody>`;
     }
     content += '</table>'
     document.getElementById('list_customer').innerHTML = content;
 }
 
 //hàm hiển thị phần chuyển page
-function displayPage(data){
+function displayPage(data) {
     let content = `<button class="btn btn-primary" id="backup" onclick="isPrevious(${data.pageable.pageNumber})">Previous</button>
-    <span>${data.pageable.pageNumber+1} | ${data.totalPages}</span>
+    <span>${data.pageable.pageNumber + 1} | ${data.totalPages}</span>
     <button class="btn btn-primary" id="next" onclick="isNext(${data.pageable.pageNumber})">Next</button>`
     document.getElementById('page').innerHTML = content;
 }
 
 //hàm lùi page
 function isPrevious(pageNumber) {
-    getAllCustomerPage(pageNumber-1)
+    getAllSongPage(pageNumber - 1)
 }
 
 //hàm tiến page
 function isNext(pageNumber) {
-    getAllCustomerPage(pageNumber+1)
+    getAllSongPage(pageNumber + 1)
 }
 
 function back() {
@@ -82,6 +103,10 @@ function updateForm(id) {
         url: "http://localhost:8080/songs/" + id,
         success: function (data) {
             $("#name").val(data.name)
+            $("#price").val(data.price)
+            $("#description").val(data.description)
+            $("#singer").val(data.singer)
+            $("#album").val(data.album)
             $("#age").val(data.age)
             $("#address").val(data.address)
             $("#list_customer").hide()

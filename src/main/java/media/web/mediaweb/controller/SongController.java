@@ -37,7 +37,7 @@ public class SongController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Song>> findAll(@PageableDefault(value = 4) Pageable pageable) {
+    public ResponseEntity<Page<Song>> findAll(@PageableDefault(value = 3) Pageable pageable) {
         return new ResponseEntity<>(songService.findAll(pageable), HttpStatus.OK);
     }
 

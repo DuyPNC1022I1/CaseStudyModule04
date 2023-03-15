@@ -564,98 +564,97 @@
 					<small class="text-muted">Song description</small>
 				</div>
 			</div><!--song card end-->
-
 		</section><!-- end category area-->
 
 <!--		Thanh play-->
-		<div class="music-play">
-			<div class="music-play__left">
-				<div class="music-play__wave hide-on-mobile-tablet">
-					<div class="music-play__wave-item"></div>
-					<div class="music-play__wave-item"></div>
-					<div class="music-play__wave-item"></div>
-				</div>
-				<div class="music-play__image">
-					<div class="box-note-icon">
-						<i class="bi bi-music-note-beamed"></i>
-					</div>
-					<div class="box-note-icon">
-						<i class="bi bi-music-note-beamed"></i>
-					</div>
-					<div class="box-note-icon">
-						<i class="bi bi-music-note-beamed"></i>
-					</div>
-					<div class="box-note-icon">
-						<i class="bi bi-music-note-beamed"></i>
-					</div>
-				</div>
-				<div class="music-play__info">
-					<marquee class="song-item--title" direction="left">
-						Music is your powerful energy!
-					</marquee>
-					<div class="song-item--singer">C1022I1</div>
-				</div>
-			</div>
-			<div class="music-play__center">
-				<div class="music-play__control">
-					<div class="btn btn-repeat hide-on-mobile">
-						<i class="bi bi-arrow-repeat"></i>
-					</div>
-					<div class="btn btn-prev">
-						<i class="bi bi-skip-backward"></i>
-					</div>
-					<div class="btn btn-toggle-play">
-						<i class="bi bi-play-circle"></i>
-					</div>
-					<div class="btn btn-next">
-						<i class="bi bi-skip-forward"></i>
-					</div>
-					<div class="btn btn-random hide-on-mobile">
-						<i class="bi bi-shuffle"></i>
-					</div>
-				</div>
-				<div class="music-play__progress">
-					<span class="music-play__progress--start">00:00</span>
-					<div class="music-play__progress--seek">
-						<input
-								id="progress"
-								class="progress"
-								type="range"
-								value="0"
-								step="1"
-								min="0"
-								max="100"
-						/>
-						<div class="seek__bar"></div>
-						<div class="seek__dot"></div>
-					</div>
-					<span class="music-play__progress--end">05:00</span>
-					<audio id="audio" src="" preload="metadata"></audio>
-				</div>
-			</div>
-			<div class="music-play__right hide-on-mobile-tablet">
-				<div class="music-play__volume">
-					<i class="bi bi-volume-down"></i>
-					<input
-							id="volume"
-							class="volume"
-							type="range"
-							value="30"
-							step="1"
-							min="0"
-							max="100"
-					/>
-					<div class="seek__bar"></div>
-					<div class="seek__dot"></div>
-				</div>
-			</div>
-		</div>
-		
+<!--		<div class="music-play">-->
+<!--			<div class="music-play__left">-->
+<!--				<div class="music-play__wave hide-on-mobile-tablet">-->
+<!--					<div class="music-play__wave-item"></div>-->
+<!--					<div class="music-play__wave-item"></div>-->
+<!--					<div class="music-play__wave-item"></div>-->
+<!--				</div>-->
+<!--				<div class="music-play__image">-->
+<!--					<div class="box-note-icon">-->
+<!--						<i class="bi bi-music-note-beamed"></i>-->
+<!--					</div>-->
+<!--					<div class="box-note-icon">-->
+<!--						<i class="bi bi-music-note-beamed"></i>-->
+<!--					</div>-->
+<!--					<div class="box-note-icon">-->
+<!--						<i class="bi bi-music-note-beamed"></i>-->
+<!--					</div>-->
+<!--					<div class="box-note-icon">-->
+<!--						<i class="bi bi-music-note-beamed"></i>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="music-play__info">-->
+<!--					<marquee class="song-item&#45;&#45;title" direction="left">-->
+<!--						Music is your powerful energy!-->
+<!--					</marquee>-->
+<!--					<div class="song-item&#45;&#45;singer">C1022I1</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="music-play__center">-->
+<!--				<div class="music-play__control">-->
+<!--					<div class="btn btn-repeat hide-on-mobile">-->
+<!--						<i class="bi bi-arrow-repeat"></i>-->
+<!--					</div>-->
+<!--					<div class="btn btn-prev">-->
+<!--						<i class="bi bi-skip-backward"></i>-->
+<!--					</div>-->
+<!--					<div class="btn btn-toggle-play">-->
+<!--						<i class="bi bi-play-circle"></i>-->
+<!--					</div>-->
+<!--					<div class="btn btn-next">-->
+<!--						<i class="bi bi-skip-forward"></i>-->
+<!--					</div>-->
+<!--					<div class="btn btn-random hide-on-mobile">-->
+<!--						<i class="bi bi-shuffle"></i>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="music-play__progress">-->
+<!--					<span class="music-play__progress&#45;&#45;start">00:00</span>-->
+<!--					<div class="music-play__progress&#45;&#45;seek">-->
+<!--						<input-->
+<!--								id="progress"-->
+<!--								class="progress"-->
+<!--								type="range"-->
+<!--								value="0"-->
+<!--								step="1"-->
+<!--								min="0"-->
+<!--								max="100"-->
+<!--						/>-->
+<!--						<div class="seek__bar"></div>-->
+<!--						<div class="seek__dot"></div>-->
+<!--					</div>-->
+<!--					<span class="music-play__progress&#45;&#45;end">05:00</span>-->
+<!--					<audio id="audio" src="" preload="metadata"></audio>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="music-play__right hide-on-mobile-tablet">-->
+<!--				<div class="music-play__volume">-->
+<!--					<i class="bi bi-volume-down"></i>-->
+<!--					<input-->
+<!--							id="volume"-->
+<!--							class="volume"-->
+<!--							type="range"-->
+<!--							value="30"-->
+<!--							step="1"-->
+<!--							min="0"-->
+<!--							max="100"-->
+<!--					/>-->
+<!--					<div class="seek__bar"></div>-->
+<!--					<div class="seek__dot"></div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+
 	</main><!--Kết thúc phần thân-->
 
 <!--	Phần footer-->
 	<footer class="p-5 pt-4  row bg-dark text-white">
-		
+
 		<div class="col-md-3 mb-4 col-sm-6">
 			<h5>Quick links</h5>
 			<ul class="nav flex-column">
@@ -684,7 +683,7 @@
 			</div>
 
 			<div class="text-white h5 ">
-				Follow us: 
+				Follow us:
 				<a href="">
 					<i class="bi bi-facebook"></i>
 				</a>
