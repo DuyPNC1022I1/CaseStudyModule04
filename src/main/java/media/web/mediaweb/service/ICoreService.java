@@ -7,7 +7,7 @@ public interface ICoreService<E> {
 
     E findById(Long id);
 
-    void save();
+    void save(E e);
 
     void deleteById(Long id);
 }

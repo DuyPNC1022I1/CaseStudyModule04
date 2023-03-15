@@ -1,6 +1,7 @@
 package media.web.mediaweb.controller;
 
 import media.web.mediaweb.model.Account;
+import media.web.mediaweb.model.Role;
 import media.web.mediaweb.model.UserPrinciple;
 import media.web.mediaweb.repository.IAccountRepository;
 import media.web.mediaweb.security.jwt.JwtResponse;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -39,7 +41,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserPrinciple user) {
+    public ResponseEntity<?> login(@RequestBody Account user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
@@ -58,13 +60,15 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody Account user) {
-        if (iAccountRepository.existsByUsername(user.getUsername())) {
+    public ResponseEntity<Void> register(@RequestBody Account account) {
+        if (iAccountRepository.existsByUsername(account.getUsername())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>());
-        user.setRoles(new HashSet<>(2));
-        accountService.save(user);
+            account.setPassword(passwordEncoder.encode(account.getPassword()));
+        Set<Role> role = new HashSet<>();
+        role.add(new Role(2L , "USER"));
+        account.setRoles(role);
+
+        accountService.save(account);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
