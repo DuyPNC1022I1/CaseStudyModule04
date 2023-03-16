@@ -12,6 +12,7 @@ function getAllSong() {
 }
 
 function getAllSongPage(page) {
+    $("#showTable").show()
     $.ajax({
         headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -19,7 +20,8 @@ function getAllSongPage(page) {
         type: "GET",
         url: "http://localhost:8080/songs/page?page=" + page + "&size=3",
         success: function (data) {
-            displayCustomer(data.content)
+            console.log(data.content)
+            displaySong(data)
             displayPage(data)
             //điều kiện bỏ nút previous
             if (data.pageable.pageNumber === 0) {
@@ -34,7 +36,7 @@ function getAllSongPage(page) {
 }
 
 function displaySong(data) {
-    let content = `<thead>
+    let content = `<table class="table table-striped">
             <tr>
                 <th colspan="11" style="text-align: center; font-size: xx-large">LIST SONG</th>
             </tr>
@@ -42,28 +44,39 @@ function displaySong(data) {
                 <th>Id</th>
                 <th>Name</th>
                 <th>Price($)</th>
-                <th>Description</th>
+                <th>dateCreate</th>
                 <th>Singer</th>
                 <th>Album</th>
                 <th>Avatar</th>
                 <th>File Mp3</th>
                 <th colspan="2">Action</th>
-            </tr>
-            </thead>`;
-    for (let i = 0; i < data.length; i++) {
-        content += `<tbody>
-            <tr>
-                <td ${data[i].id}</td>
-                <td ${data[i].name}</td>
-                <td ${data[i].price}"></td>
-                <td ${data[i].description}"></td>
-                <td ${data[i].singer}"></td>
-                <td ${data[i].album}"></td>
-                <td <img style="height: 70px; width: 70px" src="${data[i].avatar}" alt=""></td>
-                <td><audio controls><source src="${data[i].fileMp3}"></td>
-            </tbody>`;
+            </tr>`;
+    for (let i = 0; i < data.content.length; i++) {
+        content +=
+            `<tr>
+                <td scope="row">${data.content[i].id}</td>
+                <td scope="row">${data.content[i].name}</td>
+                <td scope="row">${data.content[i].price}"</td>
+                <td scope="row"">${data.content[i].dateCreateSong}"</td>
+                <td scope="row"">${data.content[i].singer}""</td>
+                <td scope="row"">${data.content[i].album}"</td>
+                <td>
+                    <img style="height: 70px; width: 70px" src="${data.content[i].avatar}">
+                </td>
+                <td><audio controls>
+                    <source src="${data.content[i].fileMp3}">
+                </audio>
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="update(data.content[i].id)"">Update</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteSong(data.content[i].id)">Delete</button>
+                </td>
+            </tr>`
     }
     content += '</table>'
+    console.log(content)
     document.getElementById('list_customer').innerHTML = content;
 }
 
@@ -119,7 +132,7 @@ function updateForm(id) {
     });
 }
 
-function update() {
+function update(id) {
     let name = $("#name").val()
     let price = $("#price").val()
     let address = $("#address").val()
@@ -129,7 +142,8 @@ function update() {
     let avatar = $("#avatar").val()
     let fileMp3 = $("#fileMp3").val()
     let newSong = {
-        id: sessionStorage.getItem("update"),
+        // id: sessionStorage.getItem("update"),
+        id: id,
         name: name,
         price: price,
         address: address,
@@ -222,9 +236,9 @@ function create() {
     formData.append("song", new Blob([JSON.stringify(newSong)], {type: 'application/json'}));
     $.ajax({
         headers: {
-            // 'Accept': 'application/json',
-            // 'Content-Type': 'application/json',
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            // Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
         contentType: false,
         processData: false,
